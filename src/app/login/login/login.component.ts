@@ -33,24 +33,20 @@ export class LoginComponent implements OnInit {
       const val = this.loginForm.value;
       
       if (val.email && val.password) {
+        this.LoginFormBtnStr = 'Please Wait..';
           this.authService.login(val.email, val.password)
               .subscribe(
                   () => {
-                    this.LoginFormBtnStr = 'Please Wait..';
                     this.FormErr = false;
                       this.router.navigateByUrl('/');
                   },
                   (err) => {
-                    this.LoginFormBtnStr = 'Please Wait..';
-                    this.FormErrMessage = err;
+                    this.LoginFormBtnStr = 'SignIn';
+                    this.FormErrMessage = err.error;
                     this.FormErr = true;
                   }
               );
       }
   }
 
-}
-export interface UserForm {
-  email:string;
-  password:string;
 }

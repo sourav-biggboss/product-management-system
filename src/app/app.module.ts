@@ -9,12 +9,14 @@ import { httpInterceptorProviders } from './auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoaderComponent } from './loader/loader.component';
+import { DashboadComponent } from './dashboad/dashboad.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
     LoaderComponent,
+    DashboadComponent,
   ],
   imports: [
     BrowserModule,

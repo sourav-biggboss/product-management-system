@@ -17,7 +17,7 @@ export class AuthService {
     this.loaderService.loader.next(true);
       return this.http.post<LoginApiResponse>(environment.apiUrl+'login', {email, password})
           .pipe(tap(
-            (userData) => {
+            (userData:LoginApiResponse) => {
               this.loaderService.loader.next(false);
               this.setSession(userData.authorisation);
             },
@@ -26,6 +26,23 @@ export class AuthService {
             },
             ()=>{
               
+              this.loaderService.loader.next(false);
+            }
+          ));
+  }
+
+  signup(name:string|null,email:string, password:string,number:string) {
+    this.loaderService.loader.next(true);
+      return this.http.post<SignUpApiResponse>(environment.apiUrl+'register', {name,email, password})
+          .pipe(tap(
+            (userData:SignUpApiResponse) => {
+              this.setSession(userData.authorisation);
+              this.loaderService.loader.next(false);
+            },
+            (err)=>{
+              this.loaderService.loader.next(false);
+            },
+            ()=>{
               this.loaderService.loader.next(false);
             }
           ));
@@ -40,7 +57,7 @@ export class AuthService {
   }
 
   public isLoggedIn() {
-      return localStorage.getItem('token') !== undefined || localStorage.getItem('token') !== null;
+      return localStorage.getItem('token') != null;
   }
 
   isLoggedOut() {
@@ -67,4 +84,24 @@ export interface Authorisation {
   token: string;
   expiresIn?:string;
   type: string;
+}
+
+export interface SignUpApiResponseUser {
+  name: string;
+  email: string;
+  updated_at: Date;
+  created_at: Date;
+  id: number;
+}
+
+export interface Authorisation {
+  token: string;
+  type: string;
+}
+
+export interface SignUpApiResponse {
+  status: string;
+  message: string;
+  user: SignUpApiResponseUser;
+  authorisation: Authorisation;
 }
