@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DashboadComponent } from './dashboad.component';
+import { RouterModule } from '@angular/router';
 
-import { DashboadRoutingModule } from './dashboad-routing.module';
-import { SidebarComponent } from '../sidebar/sidebar.component';
-import { NavbarComponent } from '../navbar/navbar.component';
 
 
 @NgModule({
   declarations: [
-    
+    DashboadComponent
   ],
   imports: [
-    CommonModule,
-    DashboadRoutingModule,
-  ],
-  exports: [
+    RouterModule.forChild([
+      {path:'',component:DashboadComponent},
+    ]),
+    CommonModule
   ]
 })
 export class DashboadModule { }
