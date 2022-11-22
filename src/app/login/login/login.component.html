@@ -3,7 +3,7 @@
     <div class="align-items-center d-flex h-100 justify-content-center w-100">
       <form class="w-50" [formGroup]="loginForm"  (ngSubmit)="login()">
         <h1>Login</h1>
-        <h6 class="text-danger" *ngIf="FormErrMessage.message">{{FormErrMessage.message}}</h6>
+        <h6 class="text-danger" *ngIf="FormErrMessage && FormErrMessage.message">{{FormErrMessage.message}}</h6>
         <h6 class="text-danger" *ngIf="loginForm.invalid && (loginForm.dirty || loginForm.touched)">Please enter email and password</h6>
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
