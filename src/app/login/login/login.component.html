@@ -15,7 +15,7 @@
           <input type="password" class="form-control" id="exampleInputPassword1"  formControlName="password" required placeholder="Password">
         </div>
         <a class="d-block mt-2" [routerLink]="['../register']" >Click Here to Register</a>
-        <button type="submit" [disabled]="loginForm.invalid && (loginForm.dirty || loginForm.touched)" class="btn mt-2 btn-primary">{{LoginFormBtnStr}}</button>
+        <button type="submit" [disabled]="loginForm.invalid && (loginForm.dirty || loginForm.touched)" class="btn mt-2 btn-primary">{{LoginFormBtnStr }}</button>
       </form>
     </div>
 </div>
