@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { AuthService } from "../auth.service";
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  isProfilebarOptionToggle:boolean = false;
+  constructor(private authService:AuthService) { }
 
   ngOnInit(): void {
+  }
+
+  onTogglrProfileBar():void{
+    this.isProfilebarOptionToggle = !this.isProfilebarOptionToggle;
+  }
+
+  onLogOut():void{
+    console.log('LoggOuting');
+    this.authService.logout()
   }
 
 }

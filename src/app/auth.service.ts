@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { environment } from "../environments/environment";
 import { LoaderService } from "./loader/loader.service";
@@ -10,7 +11,7 @@ import { ToastService } from './toast-inline/toast.service';
 })
 export class AuthService {
 
-  constructor(private http: HttpClient,private loaderService:LoaderService,private toastService:ToastService) {
+  constructor(private http: HttpClient,private loaderService:LoaderService,private toastService:ToastService,private router:Router) {
 
   }
 
@@ -21,12 +22,12 @@ export class AuthService {
             (userData:LoginApiResponse) => {
               this.loaderService.loader.next(false);
               this.saveUser(userData);
-              this.setSession(userData.authorisation);
             },
             (err)=>{
               this.loaderService.loader.next(false);
             },
             ()=>{
+              this.http.post(environment.apiUrl+'refresh',{}).subscribe();
               this.loaderService.loader.next(false);
             }
           ));
@@ -47,13 +48,28 @@ export class AuthService {
             }
           ));
   }
-        
+
   private setSession(authResult:Authorisation) {
       localStorage.setItem('token', authResult.token);
   }          
 
   logout() {
+    this.loaderService.loader.next(true);
+    return this.http.post(environment.apiUrl+'logout',{}).pipe(tap(
+      (userData) => {
+        this.loaderService.loader.next(false);
+      },
+      (err)=>{
+        this.loaderService.loader.next(false);
+      },
+      ()=>{
+        this.loaderService.loader.next(false);
+      }
+    )).subscribe((data:unknown)=>{
       localStorage.removeItem("token");
+      window.sessionStorage.removeItem(USER_KEY);
+      this.router.navigate(['/']);
+    })
   }
 
   public isLoggedIn() {
@@ -65,8 +81,10 @@ export class AuthService {
   }
 
   public saveUser(user: LoginApiResponse): void {
+    this.setSession(user.authorisation);
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    
   }
   public getUser(): LoginApiResponse | {} {
     const user = window.sessionStorage.getItem(USER_KEY);

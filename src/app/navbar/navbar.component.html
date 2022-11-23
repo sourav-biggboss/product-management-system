@@ -4,18 +4,27 @@
 
         <ul class="header-nav ms-auto me-3">
             <li class="nav-item dropdown d-md-down-none">
-                <a class="nav-link show" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                <div class="nav-link show cursor-pointer" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
                     <span class="position-relative">
                         <!-- <i class="fa fa-bell fa-2x"></i> -->
                     </span>
-                </a>
+                </div>
              </li>
          <li class="nav-item dropdown d-md-down-none">
-                <a class="show" datacoreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                <div class="show cursor-pointer" datacoreui-toggle="dropdown" (click)="onTogglrProfileBar()" role="button" aria-haspopup="true" aria-expanded="true">
                     <span class="avatar avatar-md">
                         <img class="avatar-img" src="https://coreui.io/demos/bootstrap/4.3/light-v3/assets/img/avatars/8.jpg" alt="user@email.com">
                     </span>
-                </a>
+                </div>
+                <div *ngIf="isProfilebarOptionToggle" class="dropdown-menu dropdown-menu-end pt-0 show" data-popper-placement="bottom-end" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 42px);">
+                    <div class="dropdown-header bg-light py-2 dark:bg-white dark:bg-opacity-10">
+                        <div class="fw-semibold">Account</div>
+                    </div>
+                    <div (click)="onLogOut()" class="dropdown-item cursor-pointer">
+                        <i class="fa fa-bell"></i>
+                        Logout
+                    </div>
+                </div>
              </li>
         
         </ul>
