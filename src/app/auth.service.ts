@@ -24,10 +24,10 @@ export class AuthService {
               this.saveUser(userData);
             },
             (err)=>{
+              this.http.post(environment.apiUrl+'refresh',{}).subscribe();
               this.loaderService.loader.next(false);
             },
             ()=>{
-              this.http.post(environment.apiUrl+'refresh',{}).subscribe();
               this.loaderService.loader.next(false);
             }
           ));
@@ -68,7 +68,7 @@ export class AuthService {
     )).subscribe((data:unknown)=>{
       localStorage.removeItem("token");
       window.sessionStorage.removeItem(USER_KEY);
-      this.router.navigate(['/']);
+      this.router.navigateByUrl('/auth');
     })
   }
 
