@@ -5,3 +5,12 @@ flex: 1;
 height: 1px;
 background: #eee;
 }
+.sidebar:not(.sidebar-end)~* {
+    --cui-sidebar-occupy-start: 18rem;
+}
+@media (min-width: 768px){
+
+    .sidebar.hide.sidebar-end~* {
+        --cui-sidebar-occupy-end: 0;
+    }
+}
