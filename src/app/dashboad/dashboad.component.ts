@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastService } from '../toast-inline/toast.service';
 
 @Component({
   selector: 'app-dashboad',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboadComponent implements OnInit {
 
-  constructor() { }
+  constructor(private toastService:ToastService) { }
 
   ngOnInit(): void {
+    this.toastService.show('Welcome, This is Development Environment 😀');
   }
 
 }

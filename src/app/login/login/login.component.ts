@@ -37,13 +37,19 @@ export class LoginComponent implements OnInit {
           this.authService.login(val.email, val.password)
               .subscribe(
                   () => {
-                    this.FormErr = false;
+                      this.FormErr = false;
                       this.router.navigateByUrl('/');
                   },
                   (err) => {
+                    
                     this.LoginFormBtnStr = 'SignIn';
                     this.FormErrMessage = err.error;
-                    this.FormErr = true;
+                    if(err.error.message === undefined){
+                      this.FormErr = true;
+                    }
+                  },
+                  () => {
+                    this.LoginFormBtnStr = 'SignIn';
                   }
               );
       }

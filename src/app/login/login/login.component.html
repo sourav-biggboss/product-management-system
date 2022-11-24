@@ -5,6 +5,7 @@
         <h1>Login</h1>
         <h6 class="text-danger" *ngIf="FormErrMessage && FormErrMessage.message">{{FormErrMessage.message}}</h6>
         <h6 class="text-danger" *ngIf="loginForm.invalid && (loginForm.dirty || loginForm.touched)">Please enter email and password</h6>
+        <h6 class="text-danger" *ngIf="FormErr">Login Failed</h6>
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
           <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  formControlName="email" required placeholder="Enter email">

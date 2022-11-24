@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { httpInterceptorProviders } from './auth.interceptor';
+import { AuthHttpInterceptorProviders } from './auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoaderComponent } from './loader/loader.component';
@@ -13,6 +13,8 @@ import { PanelComponent } from './panel/panel.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ToastInlineComponent } from './toast-inline/toast-inline.component';
+import { ApiHttpInterceptorProviders, ApiInterceptor } from './api.interceptor';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     PanelComponent,
     SidebarComponent,
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    ToastInlineComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     HttpClientModule
   ],
   providers: [
-    httpInterceptorProviders
+    AuthHttpInterceptorProviders,
+    ApiHttpInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })

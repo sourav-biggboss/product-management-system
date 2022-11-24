@@ -15,7 +15,6 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    
     const idToken = localStorage.getItem("token");
     
     if (idToken) {
@@ -31,6 +30,6 @@ export class AuthInterceptor implements HttpInterceptor {
     }
   }
 }
-export const httpInterceptorProviders = [
+export const AuthHttpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 ];
