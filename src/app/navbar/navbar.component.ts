@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from "../auth.service";
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,7 @@ import { AuthService } from "../auth.service";
 export class NavbarComponent implements OnInit {
 
   isProfilebarOptionToggle:boolean = false;
-  constructor(private authService:AuthService) { }
+  constructor(private authService:AuthService,private route:Router) { }
 
   ngOnInit(): void {
   }

@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { PanelRoutingModule } from './panel-routing.module';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { DashboadModule } from '../dashboad/dashboad.module';
+// import { DashboadModule } from '../dashboad/dashboad.module';
+// import { ProfileModule } from '../profile/profile.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { DashboadModule } from '../dashboad/dashboad.module';
   imports: [
     CommonModule,
     PanelRoutingModule,
-    DashboadModule
+    // DashboadModule,
+    // ProfileModule
   ],
   exports: [
   ]

@@ -20,6 +20,10 @@
                     <div class="dropdown-header bg-light py-2 dark:bg-white dark:bg-opacity-10">
                         <div class="fw-semibold">Account</div>
                     </div>
+                    <a [routerLink]="['profile']" class="dropdown-item cursor-pointer">
+                        <i class="fa fa-child"></i>
+                        Profile
+                    </a>
                     <div (click)="onLogOut()" class="dropdown-item cursor-pointer">
                         <i class="fa fa-bell"></i>
                         Logout

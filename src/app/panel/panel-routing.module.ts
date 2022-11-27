@@ -9,6 +9,11 @@ const routes: Routes = [
       pathMatch: 'full',
       loadChildren: () => import('../dashboad/dashboad.module').then(m => m.DashboadModule)
     },
+    {
+      path: 'profile',
+      pathMatch: 'full',
+      loadChildren: () => import('../profile/profile.module').then(m => m.ProfileModule)
+    },
     {path:'',redirectTo:'dashboad',pathMatch:'full'}
   ]}
 ];
