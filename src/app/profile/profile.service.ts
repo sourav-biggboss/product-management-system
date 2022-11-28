@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
 import { ConfigApiService } from '../config/config-api.service';
@@ -27,6 +27,9 @@ export class ProfileService {
   }
 
   updateUser(formDate:UserDetailsFormInterface,id?:number){
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'multipart/form-data');
+      
     return this.http.put<{status:string}>(this.configApi.apiUrl+'profile/update/'+(id ?? ''),formDate).pipe(tap(
       (data) => {
         this.loaderService.loader.next(false);

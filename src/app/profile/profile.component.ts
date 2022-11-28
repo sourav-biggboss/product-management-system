@@ -9,23 +9,30 @@ import { ProfileService } from './profile.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
+  FormErr:boolean = false;
+  FormErrMessage:any = undefined;
   userDetails!:FormGroup<any>;
 
   constructor(private form:FormBuilder,private profileService:ProfileService,private toastService:ToastService) { }
 
   ngOnInit(): void {
     this.profileService.fetchEmp().subscribe((data:UserDetailsApiInterface)=>{
+      this.FormErr = false;
       this.userDetails = this.form.group({
         name : [data.name,[Validators.required,Validators.maxLength(225)]],
         email : [data.email,[Validators.required,Validators.email,Validators.max(225)]],
         roll : [data.roll,[Validators.max(225)]],
-        profile : [null],
+        photo : [null],
         cv : [null],
+        address : [data.address],
+        password : [null],
         number : [data.number,Validators.required],
         department_id : [data.department_id,Validators.required],
         salary : [data.salary,Validators.required],
       });
+    },(err)=>{
+      this.FormErrMessage = err.error;
+      this.FormErr = true;
     })
 
   }
@@ -45,7 +52,7 @@ export class ProfileComponent implements OnInit {
 
 export interface UserDetailsFormInterface {
   name:string,
-  profile?:File,
+  photo?:File,
   roll?:string,
   email:string,
   password:string,
@@ -65,4 +72,5 @@ export interface UserDetailsApiInterface {
   number:number | null,
   department_id:number | null,
   salary:number | null,
+  address:string | null
 }
