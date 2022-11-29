@@ -9,11 +9,13 @@ const routes: Routes = [
   {path:'panel',loadChildren:() => import('./panel/panel.module').then(m => m.PanelModule),canActivateChild:[AuthGuard]},
   {path:'',redirectTo:'panel',pathMatch:'full'},
   /* This is a wildcard route. It will match any route that is not matched by the other routes. */
-  {path:'**', component:PageNotFoundComponent,canActivate:[AuthGuard]}
+  {path:'**', component:PageNotFoundComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{
+    enableTracing: false // <-- debugging purposes only
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

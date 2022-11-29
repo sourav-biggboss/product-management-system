@@ -9287,7 +9287,7 @@ html:not([dir="rtl"]) .header-nav {
   --cui-sidebar-nav-link-hover-color: rgba(255, 255, 255, 0.87);
   --cui-sidebar-nav-link-hover-bg: rgba(0, 0, 21, 0.05);
   --cui-sidebar-nav-link-hover-icon-color: rgba(255, 255, 255, 0.87);
-  --cui-sidebar-nav-icon-width: 4rem;
+  --cui-sidebar-nav-icon-width: 2rem;
   --cui-sidebar-nav-icon-height: 1.25rem;
   --cui-sidebar-nav-icon-font-size: 1.25rem;
   --cui-sidebar-nav-link-icon-color: rgba(255, 255, 255, 0.38);

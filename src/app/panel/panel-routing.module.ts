@@ -14,6 +14,10 @@ const routes: Routes = [
       pathMatch: 'full',
       loadChildren: () => import('../profile/profile.module').then(m => m.ProfileModule)
     },
+    {
+      path: 'department',
+      loadChildren: () => import('../department/department.module').then(m => m.DepartmentModule)
+    },
     {path:'',redirectTo:'dashboad',pathMatch:'full'}
   ]}
 ];
