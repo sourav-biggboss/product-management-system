@@ -1,8 +1,11 @@
+<h4>Departments List</h4>
+<hr>
 <table class="table table-striped">
 	<thead>
 		<tr>
 			<th scope="col">#</th>
 			<th scope="col">Name</th>
+			<th scope="col">Description</th>
 			<th scope="col">Action</th>
 		</tr>
 	</thead>
@@ -13,7 +16,12 @@
 				{{ department.name }}
 			</td>
 			<td>
-                <button class="btn btn-danger text-white" (click)="onDelete(department.id)">Delete</button>
+				<span *ngIf="department.description" >{{ department.description }}</span>
+				<span *ngIf="!department.description" >N/A</span>
+			</td>
+			<td>
+                <button class="btn btn-primary btn-sm text-white" (click)="onUpdateView(department.id)">Update</button>
+                <button class="mr-2 btn btn-danger btn-sm text-white" (click)="onDelete(department.id)">Delete</button>
             </td>
 		</tr>
 	</tbody>

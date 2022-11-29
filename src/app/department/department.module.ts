@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AddComponent } from './department/add/add.component';
+import { AddUpdateComponent } from './department/add-update/add-update.component';
 import { ListComponent } from './department/list/list.component';
 import { DepartmentComponent } from './department/department.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     ListComponent,
-    AddComponent,
+    AddUpdateComponent,
     DepartmentComponent
   ],
   imports: [
@@ -19,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     RouterModule.forChild([
       {path:'',component:DepartmentComponent,children:[
-        {path:'add',component:AddComponent},
+        {path:'add-update/:screen',component:AddUpdateComponent},
+        {path:'add-update/:screen/:id',component:AddUpdateComponent},
         {path:'list',component:ListComponent},
         {path:'',redirectTo:'add',pathMatch:'full'},
       ]},

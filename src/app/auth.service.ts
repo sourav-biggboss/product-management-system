@@ -65,7 +65,15 @@ export class AuthService {
       ()=>{
         this.loaderService.loader.next(false);
       }
-    )).subscribe((data:unknown)=>{
+    )).subscribe(()=>{
+      localStorage.removeItem("token");
+      window.sessionStorage.removeItem(USER_KEY);
+      this.router.navigateByUrl('/auth');
+    },()=>{
+      localStorage.removeItem("token");
+      window.sessionStorage.removeItem(USER_KEY);
+      this.router.navigateByUrl('/auth');
+    },()=>{
       localStorage.removeItem("token");
       window.sessionStorage.removeItem(USER_KEY);
       this.router.navigateByUrl('/auth');

@@ -94,9 +94,10 @@ export class DepartmentService {
 }
 
 export interface DepartmentDetailsApiInterface {
-  id:number,name: string, updated_at:string,created_at: string
+  id:number,name: string, updated_at:string|null,created_at: string,description:string|null
 }
 
 export interface DepartmentDetailsFormInterface {
-  name?: string | null
+  name?: string | null,
+  description?: string | null
 }

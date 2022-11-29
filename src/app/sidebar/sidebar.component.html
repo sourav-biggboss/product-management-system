@@ -17,7 +17,7 @@
                             <li class="nav-group" [ngClass]="{show:departmentToggle}" aria-expanded="false">
                                 <a class="nav-link nav-group-toggle" (click)="departmentToggle = !departmentToggle" > Department</a>
                                 <ul class="nav-group-items" style="height: auto;">
-                                    <li class="nav-item"><a class="nav-link" [routerLink]="['department/add']">Department Add</a></li>
+                                    <li class="nav-item"><a class="nav-link" [routerLink]="['department/add-update','add']">Department Add</a></li>
                                     <li class="nav-item"><a class="nav-link" [routerLink]="['department/list']">Department List</a></li>
                                 </ul>
                             </li>
