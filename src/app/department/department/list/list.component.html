@@ -10,7 +10,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let department of departments; index as i">
+		<tr *ngFor="let department of departments | slice: (paginationPage-1) * pageSize : paginationPage * pageSize; index as i">
 			<th scope="row">{{ i + 1 }}</th>
 			<td>
 				{{ department.name }}
@@ -20,9 +20,10 @@
 				<span *ngIf="!department.description" >N/A</span>
 			</td>
 			<td>
-                <button class="btn btn-primary btn-sm text-white" (click)="onUpdateView(department.id)">Update</button>
-                <button class="mr-2 btn btn-danger btn-sm text-white" (click)="onDelete(department.id)">Delete</button>
+                <button class="btn btn-primary btn-sm text-white" (click)="onUpdateView(department.id)"><i class="fa fa-edit"></i> Update</button>
+                <button class="mr-2 btn btn-danger btn-sm text-white" (click)="onDelete(department.id)"><i class="fa fa-trash-o"></i> Delete</button>
             </td>
 		</tr>
 	</tbody>
 </table>
+<ngb-pagination [collectionSize]="listCount" [maxSize]="5" [rotate]="true" (pageChange)="onFetchData($event)" [pageSize]="pageSize" [(page)]="paginationPage" class="align-items-center d-flex justify-content-center mx-auto pagination pagination-sm mt-3"></ngb-pagination>

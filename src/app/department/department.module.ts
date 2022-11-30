@@ -5,7 +5,7 @@ import { AddUpdateComponent } from './department/add-update/add-update.component
 import { ListComponent } from './department/list/list.component';
 import { DepartmentComponent } from './department/department.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
+    NgbModule,
     ReactiveFormsModule,
     RouterModule.forChild([
       {path:'',component:DepartmentComponent,children:[

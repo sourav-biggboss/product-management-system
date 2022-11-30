@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
 import { ConfigApiService } from '../config/config-api.service';
@@ -13,9 +13,14 @@ export class DepartmentService {
   constructor(private http:HttpClient,private configApi:ConfigApiService,private loaderService:LoaderService,private toastService:ToastService) { }
 
 
-  fetchDepartments(id?:number){
+  fetchDepartments(id?:number,offset = 0,limit = 30){
     this.loaderService.loader.next(true);
-    return this.http.get<DepartmentDetailsApiInterface[]>(this.configApi.apiUrl+'department/index/'+(id ?? '')).pipe(tap(
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('offset', offset);
+    queryParams = queryParams.append('limit', limit);
+    return this.http.get<DepartmentDetailsApiInterface[]>(this.configApi.apiUrl+'department/index/'+(id ?? ''),{
+      params : queryParams
+    }).pipe(tap(
       (data) => {
         this.loaderService.loader.next(false);
       },
