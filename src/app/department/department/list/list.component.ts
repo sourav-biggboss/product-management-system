@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfigApiService } from 'src/app/config/config-api.service';
 import { ToastService } from 'src/app/toast-inline/toast.service';
@@ -14,25 +15,35 @@ export class ListComponent implements OnInit {
   FormErr:boolean = false;
   FormErrMessage:any = undefined;
   listCount:number = 0;
-  public paginationPage:number = 1;
+  paginationPage:number = 1;
   pageSize:number = 30;
-   
-
+  filter = new FormControl('', { nonNullable: true });
+  tableGlobleSearch!:string;
   constructor(private toastService: ToastService,private departmentService:DepartmentService,private router:Router,private configApiService:ConfigApiService) { }
 
   ngOnInit(): void {
     this.onFetchData();
-    this.configApiService.commonApi<{total:number}>('count','departments').subscribe((data)=>{
-      this.listCount = data.total;
+    this.getCountList();
+  }
+  
+  getCountList(){
+    this.configApiService.commonApiCount('departments').subscribe((data)=>{
+      this.listCount = data.count;
     });
+  }
+  onSearch(search:string){
+    this.tableGlobleSearch = search;
+    this.departments = [];
+    this.onFetchData();
+    this.getCountList();
   }
 
   onFetchData(event:number = 1){
     // set page limit
     const offset = this.pageSize * (event - 1);
     const limit = this.pageSize;
-
-    this.departmentService.fetchDepartments(undefined,offset,limit).subscribe((data:DepartmentDetailsApiInterface[])=>{
+    
+    this.departmentService.fetchDepartments(undefined,offset,limit,this.tableGlobleSearch).subscribe((data:DepartmentDetailsApiInterface[])=>{
       this.FormErr = false;
       this.departments = this.departments.concat(data);
     },(err)=>{

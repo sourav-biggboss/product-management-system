@@ -13,11 +13,14 @@ export class DepartmentService {
   constructor(private http:HttpClient,private configApi:ConfigApiService,private loaderService:LoaderService,private toastService:ToastService) { }
 
 
-  fetchDepartments(id?:number,offset = 0,limit = 30){
+  fetchDepartments(id?:number,offset = 0,limit = 30,search?:string){
     this.loaderService.loader.next(true);
     let queryParams = new HttpParams();
     queryParams = queryParams.append('offset', offset);
     queryParams = queryParams.append('limit', limit);
+    if(search){
+      queryParams = queryParams.append('search', search);
+    }
     return this.http.get<DepartmentDetailsApiInterface[]>(this.configApi.apiUrl+'department/index/'+(id ?? ''),{
       params : queryParams
     }).pipe(tap(

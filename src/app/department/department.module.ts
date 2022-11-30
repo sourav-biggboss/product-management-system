@@ -4,20 +4,25 @@ import { RouterModule } from '@angular/router';
 import { AddUpdateComponent } from './department/add-update/add-update.component';
 import { ListComponent } from './department/list/list.component';
 import { DepartmentComponent } from './department/department.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PleaseWaitComponent } from '../please-wait/please-wait.component';
+import { ModuleLayoutComponent } from '../module-layout/module-layout.component';
 
 
 @NgModule({
   declarations: [
+    PleaseWaitComponent,
     ListComponent,
     AddUpdateComponent,
-    DepartmentComponent
+    DepartmentComponent,
+    ModuleLayoutComponent,
   ],
   imports: [
     CommonModule,
     NgbModule,
     ReactiveFormsModule,
+    FormsModule,
     RouterModule.forChild([
       {path:'',component:DepartmentComponent,children:[
         {path:'add-update/:screen',component:AddUpdateComponent},
@@ -26,6 +31,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         {path:'',redirectTo:'add',pathMatch:'full'},
       ]},
     ]),
+  ],
+  exports:[
+    // ModuleLayoutComponent
   ]
 })
 export class DepartmentModule { }

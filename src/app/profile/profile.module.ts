@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ModuleLayoutComponent } from '../module-layout/module-layout.component';
 
 
 
@@ -16,6 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ]),
     CommonModule,
     ReactiveFormsModule,
+  ],
+  exports:[
   ]
 })
 export class ProfileModule { }

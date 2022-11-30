@@ -1,0 +1,15 @@
+<div class="container-lg">
+    <div class="fs-2 fw-semibold">{{moduleName}}</div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item" *ngFor="let path of urlPaths;let i = index" [ngClass]="{active: (i + 1) == urlPaths.length}">
+        <span>{{path}}</span>
+        </li>
+    </ol>
+    </nav>
+    <div class="card mb-4">
+    <div class="card-body">
+        <ng-content></ng-content>
+    </div>
+    </div>
+</div>

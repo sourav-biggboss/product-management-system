@@ -1,6 +1,14 @@
-<h4>Departments List</h4>
+<div class="align-items-center d-flex justify-content-between">
+	<h4>Departments List</h4>
+	<form class="align-items-center d-flex form-inline justify-content-center m-0 ng-pristine ng-untouched ng-valid">
+		<div class="form-group mx-sm-3">
+			<input id="table-filtering-search" class="form-control" type="text" placeholder="Search.." #tableGlobleSearch formcontrol="filter">
+		</div>
+		<button type="button" class="btn btn-primary btn-left" (click)="onSearch(tableGlobleSearch.value)" ><i class="fa fa-search"></i> Search</button>
+	</form>
+</div>
 <hr>
-<table class="table table-striped">
+<table *ngIf="departments.length > 0 ;else pleaseWait" class="table table-striped">
 	<thead>
 		<tr>
 			<th scope="col">#</th>
@@ -20,10 +28,15 @@
 				<span *ngIf="!department.description" >N/A</span>
 			</td>
 			<td>
-                <button class="btn btn-primary btn-sm text-white" (click)="onUpdateView(department.id)"><i class="fa fa-edit"></i> Update</button>
-                <button class="mr-2 btn btn-danger btn-sm text-white" (click)="onDelete(department.id)"><i class="fa fa-trash-o"></i> Delete</button>
+				<div class="btn-group" role="group" aria-label="Action">
+					<button class="btn btn-primary btn-sm text-white" (click)="onUpdateView(department.id)"><i class="fa fa-edit"></i> Update</button>
+					<button class="mr-2 btn btn-danger btn-sm text-white" (click)="onDelete(department.id)"><i class="fa fa-trash-o"></i> Delete</button>
+				</div>
             </td>
 		</tr>
 	</tbody>
 </table>
-<ngb-pagination [collectionSize]="listCount" [maxSize]="5" [rotate]="true" (pageChange)="onFetchData($event)" [pageSize]="pageSize" [(page)]="paginationPage" class="align-items-center d-flex justify-content-center mx-auto pagination pagination-sm mt-3"></ngb-pagination>
+<ngb-pagination *ngIf="departments.length > 0" [collectionSize]="listCount" [maxSize]="5" [rotate]="true" (pageChange)="onFetchData($event)" [pageSize]="pageSize" [(page)]="paginationPage" class="align-items-center d-flex justify-content-center mx-auto pagination pagination-sm mt-3"></ngb-pagination>
+<ng-template #pleaseWait>
+	<app-please-wait></app-please-wait>
+</ng-template>

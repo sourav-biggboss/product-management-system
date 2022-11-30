@@ -26,8 +26,64 @@ export class ConfigApiService {
     return throwError(error);
   }
 
-  public commonApi<T>(action:string,modelName:string,data?:Object):Observable<T>{
-    return this.http.post<T>(this.apiUrl+'common-api/'+action+'/'+modelName,data).pipe(tap(
+  public commonApiCount(modelName:string,data?:Object):Observable<commonApiCountResponse>{
+    return this.http.get<commonApiCountResponse>(this.apiUrl+'common-api/count/'+modelName,data).pipe(tap(
+      () => {
+        this.loaderService.loader.next(false);
+      },
+      ()=>{
+        this.loaderService.loader.next(false);
+      },
+      ()=>{
+        this.loaderService.loader.next(false);
+      }
+    ));
+  }
+
+  public commonApiFetch<T>(modelName:string,data?:Object,offet:number = 0):Observable<T>{
+    return this.http.get<T>(this.apiUrl+'common-api/index/'+modelName+'/'+offet,data).pipe(tap(
+      () => {
+        this.loaderService.loader.next(false);
+      },
+      ()=>{
+        this.loaderService.loader.next(false);
+      },
+      ()=>{
+        this.loaderService.loader.next(false);
+      }
+    ));
+  }
+
+  public commonApiCreate<commonApiCreateUpdateResponse>(modelName:string,data?:Object):Observable<commonApiCreateUpdateResponse>{
+    return this.http.post<commonApiCreateUpdateResponse>(this.apiUrl+'common-api/create/'+modelName,data).pipe(tap(
+      () => {
+        this.loaderService.loader.next(false);
+      },
+      ()=>{
+        this.loaderService.loader.next(false);
+      },
+      ()=>{
+        this.loaderService.loader.next(false);
+      }
+    ));
+  }
+
+  public commonApiUpdate<commonApiCreateUpdateResponse>(modelName:string,id:number,data?:Object):Observable<commonApiCreateUpdateResponse>{
+    return this.http.put<commonApiCreateUpdateResponse>(this.apiUrl+'common-api/update/'+modelName+'/'+id,data).pipe(tap(
+      () => {
+        this.loaderService.loader.next(false);
+      },
+      ()=>{
+        this.loaderService.loader.next(false);
+      },
+      ()=>{
+        this.loaderService.loader.next(false);
+      }
+    ));
+  }
+
+  public commonApiDelete<commonApiCreateUpdateResponse>(modelName:string,id:number):Observable<commonApiCreateUpdateResponse>{
+    return this.http.delete<commonApiCreateUpdateResponse>(this.apiUrl+'common-api/delete/'+modelName+'/'+id).pipe(tap(
       () => {
         this.loaderService.loader.next(false);
       },
@@ -41,8 +97,12 @@ export class ConfigApiService {
   }
 
 }
-
-
+export interface commonApiCountResponse {
+  count:number
+}
+export interface commonApiCreateUpdateResponse {
+  status:'failed'|'success'
+}
 export const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
