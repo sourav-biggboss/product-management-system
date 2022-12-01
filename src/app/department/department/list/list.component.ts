@@ -19,13 +19,16 @@ export class ListComponent implements OnInit {
   pageSize:number = 30;
   filter = new FormControl('', { nonNullable: true });
   tableGlobleSearch!:string;
+  advanceSearch:boolean = false;
   constructor(private toastService: ToastService,private departmentService:DepartmentService,private router:Router,private configApiService:ConfigApiService) { }
 
   ngOnInit(): void {
     this.onFetchData();
     this.getCountList();
   }
-  
+  onToggleAdvanceSearch(){
+    this.advanceSearch = !this.advanceSearch;
+  }  
   getCountList(){
     this.configApiService.commonApiCount('departments').subscribe((data)=>{
       this.listCount = data.count;

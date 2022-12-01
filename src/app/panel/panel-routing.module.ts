@@ -6,12 +6,10 @@ const routes: Routes = [
   {path:'',component:PanelComponent,children:[
     {
       path: 'dashboad',
-      pathMatch: 'full',
       loadChildren: () => import('../dashboad/dashboad.module').then(m => m.DashboadModule)
     },
     {
       path: 'profile',
-      pathMatch: 'full',
       loadChildren: () => import('../profile/profile.module').then(m => m.ProfileModule)
     },
     {

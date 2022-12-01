@@ -4,6 +4,8 @@ import { Observable, tap, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader/loader.service';
 import { ToastService } from '../toast-inline/toast.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,11 +13,14 @@ export class ConfigApiService {
 
   public apiUrl = environment.apiUrl;
   public apiHostDomain =  environment.apiHostDomain;
-  constructor(private http:HttpClient,private loaderService:LoaderService,private toastService:ToastService){}
+  constructor(private http:HttpClient,private loaderService:LoaderService,private toastService:ToastService,public router:Router,public authService:AuthService){}
   public handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
+    if (error.status === 401) {
+      this.authService.logout();
+      this.router.navigate(['/'])
+    } else if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error);
+      // console.error('An error occurred:', error.error);
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.

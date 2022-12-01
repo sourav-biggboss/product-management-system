@@ -39,8 +39,12 @@
         </div>
         <div class="col-md-4">
           <label for="department" class="form-label">Department <small class="text-danger">*</small></label>
-          <select id="department" class="form-select" formControlName="department_id"  required>
-            <option *ngFor="let department of departments" [value]="department.id" >{{department.name}}</option>
+          <select id="department" *ngIf="departments && departments.length > 0 " class="form-select" [(ngModel)]="this.userDetails.value.department_id" formControlName="department_id"  required>
+            <option value="" [selected]="!this.userDetails.value.department_id">Please Select Department</option>
+            <option *ngFor="let department of departments" [value]="department.id">{{department.name}}</option>
+          </select>
+          <select id="department" *ngIf="!(departments && departments.length > 0 )" class="form-select" [(ngModel)]="this.userDetails.value.department_id" formControlName="department_id"  required>
+            <option >Please Create Departments</option>
           </select>
         </div>
         <div class="col-md-2">

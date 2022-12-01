@@ -14,7 +14,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ToastInlineComponent } from './toast-inline/toast-inline.component';
-import { ApiHttpInterceptorProviders, ApiInterceptor } from './api.interceptor'
+import { ApiHttpInterceptorProviders, ApiInterceptor } from './api.interceptor';
 
 @NgModule({
   declarations: [

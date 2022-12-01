@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Subscriber } from 'rxjs';
@@ -15,7 +16,18 @@ export class ProfileComponent implements OnInit {
   departments:DepartmentDetailsApiInterface[] = [];
   FormErr:boolean = false;
   FormErrMessage:any = undefined;
-  userDetails!:FormGroup<any>;
+  userDetails:FormGroup<any> = this.form.group({
+    name : ['',[Validators.required,Validators.maxLength(225)]],
+    email : ['',[Validators.required,Validators.email,Validators.max(225)]],
+    roll : ['',[Validators.max(225)]],
+    photo : [''],
+    cv : [''],
+    address : [''],
+    password : [''],
+    number : ['',Validators.required],
+    department_id : ['',Validators.required],
+    salary : ['',Validators.required],
+  });
 
   constructor(private form:FormBuilder,private profileService:ProfileService,private toastService:ToastService,private departmentService:DepartmentService,private configApiService:ConfigApiService) { }
 
@@ -41,9 +53,9 @@ export class ProfileComponent implements OnInit {
       this.FormErr = true;
     })
 
-    this.configApiService.commonApiFetch<DepartmentDetailsApiInterface[]>('departments',undefined,0).subscribe((data)=>{
+    this.departmentService.fetchDepartments().subscribe((data:DepartmentDetailsApiInterface[])=>{
       this.departments = data;
-    })
+    });
     
   }
 

@@ -4,14 +4,10 @@ import { ProfileComponent } from './profile.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-// import { ModuleLayoutComponent } from '../module-layout/module-layout.component';
-
-
 
 @NgModule({
   declarations: [
     ProfileComponent,
-    // ModuleLayoutComponent
   ],
   imports: [
     SharedModule,
@@ -20,9 +16,6 @@ import { SharedModule } from '../shared/shared.module';
     ]),
     CommonModule,
     ReactiveFormsModule,
-  ],
-  exports:[
-    // ModuleLayoutComponent
   ]
 })
 export class ProfileModule { }

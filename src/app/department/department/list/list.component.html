@@ -4,9 +4,13 @@
 		<div class="form-group mx-sm-3">
 			<input id="table-filtering-search" class="form-control" type="text" placeholder="Search.." #tableGlobleSearch formcontrol="filter">
 		</div>
-		<button type="button" class="btn btn-primary btn-left" (click)="onSearch(tableGlobleSearch.value)" ><i class="fa fa-search"></i> Search</button>
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<button type="button" class="btn btn-primary btn-left" (click)="onSearch(tableGlobleSearch.value)" ><i class="fa fa-search"></i> Search</button>
+			<button type="button" class="btn btn-primary btn-sm btn-left" (click)="onToggleAdvanceSearch()"><i class="fa fa-arrow-circle-down"></i></button>
+		</div>
 	</form>
 </div>
+<app-advance-search *ngIf="advanceSearch"></app-advance-search>
 <hr>
 <table *ngIf="departments.length > 0 ;else pleaseWait" class="table table-striped">
 	<thead>
