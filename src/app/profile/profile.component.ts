@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { Subscriber } from 'rxjs';
+import { ConfigApiService } from '../config/config-api.service';
+import { DepartmentDetailsApiInterface, DepartmentService } from '../department/department.service';
 import { ToastService } from '../toast-inline/toast.service';
 import { ProfileService } from './profile.service';
 
@@ -9,32 +12,39 @@ import { ProfileService } from './profile.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  departments:DepartmentDetailsApiInterface[] = [];
   FormErr:boolean = false;
   FormErrMessage:any = undefined;
   userDetails!:FormGroup<any>;
 
-  constructor(private form:FormBuilder,private profileService:ProfileService,private toastService:ToastService) { }
+  constructor(private form:FormBuilder,private profileService:ProfileService,private toastService:ToastService,private departmentService:DepartmentService,private configApiService:ConfigApiService) { }
 
   ngOnInit(): void {
-    this.profileService.fetchEmp().subscribe((data:UserDetailsApiInterface)=>{
-      this.FormErr = false;
-      this.userDetails = this.form.group({
-        name : [data.name,[Validators.required,Validators.maxLength(225)]],
-        email : [data.email,[Validators.required,Validators.email,Validators.max(225)]],
-        roll : [data.roll,[Validators.max(225)]],
-        photo : [null],
-        cv : [null],
-        address : [data.address],
-        password : [null],
-        number : [data.number,Validators.required],
-        department_id : [data.department_id,Validators.required],
-        salary : [data.salary,Validators.required],
-      });
+    this.profileService.fetchEmp().subscribe((data:UserDetailsApiInterface | undefined)=>{
+      if(data){
+        this.FormErr = false;
+        this.userDetails = this.form.group({
+          name : [data.name ?? '',[Validators.required,Validators.maxLength(225)]],
+          email : [data.email ?? '',[Validators.required,Validators.email,Validators.max(225)]],
+          roll : [data.roll ?? '',[Validators.max(225)]],
+          photo : [null],
+          cv : [null],
+          address : [data.address ?? ''],
+          password : [null],
+          number : [data.number ?? '',Validators.required],
+          department_id : [data.department_id ?? '',Validators.required],
+          salary : [data.salary ?? '',Validators.required],
+        });
+      }
     },(err)=>{
       this.FormErrMessage = err.error;
       this.FormErr = true;
     })
 
+    this.configApiService.commonApiFetch<DepartmentDetailsApiInterface[]>('departments',undefined,0).subscribe((data)=>{
+      this.departments = data;
+    })
+    
   }
 
   onSubmitDetails(){

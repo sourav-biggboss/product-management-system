@@ -35,7 +35,7 @@ export class AuthService {
 
   signup(name:string|null,email:string, password:string,number:string) {
     this.loaderService.loader.next(true);
-      return this.http.post<SignUpApiResponse>(environment.apiUrl+'register', {name,email, password})
+      return this.http.post<SignUpApiResponse>(environment.apiUrl+'register', {name,email, password,number})
           .pipe(tap(
             (userData:SignUpApiResponse) => {
               this.loaderService.loader.next(false);

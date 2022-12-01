@@ -13,7 +13,7 @@ export class ProfileService {
   constructor(private http:HttpClient,private configApi:ConfigApiService,private loaderService:LoaderService,private toastService:ToastService) { }
 
   fetchEmp(id?:number){
-    return this.http.get<UserDetailsApiInterface>(this.configApi.apiUrl+'profile/edit/'+(id ?? '')).pipe(tap(
+    return this.http.get<UserDetailsApiInterface | undefined>(this.configApi.apiUrl+'profile/edit/'+(id ?? '')).pipe(tap(
       (userData) => {
         this.loaderService.loader.next(false);
       },
