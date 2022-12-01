@@ -6,19 +6,17 @@ import { ListComponent } from './department/list/list.component';
 import { DepartmentComponent } from './department/department.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { PleaseWaitComponent } from '../please-wait/please-wait.component';
-import { ModuleLayoutComponent } from '../module-layout/module-layout.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
-    PleaseWaitComponent,
     ListComponent,
     AddUpdateComponent,
     DepartmentComponent,
-    ModuleLayoutComponent,
   ],
   imports: [
+    SharedModule,
     CommonModule,
     NgbModule,
     ReactiveFormsModule,
@@ -31,9 +29,6 @@ import { ModuleLayoutComponent } from '../module-layout/module-layout.component'
         {path:'',redirectTo:'add',pathMatch:'full'},
       ]},
     ]),
-  ],
-  exports:[
-    // ModuleLayoutComponent
   ]
 })
 export class DepartmentModule { }

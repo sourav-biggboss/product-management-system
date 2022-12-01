@@ -3,15 +3,18 @@ import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ModuleLayoutComponent } from '../module-layout/module-layout.component';
+import { SharedModule } from '../shared/shared.module';
+// import { ModuleLayoutComponent } from '../module-layout/module-layout.component';
 
 
 
 @NgModule({
   declarations: [
-    ProfileComponent
+    ProfileComponent,
+    // ModuleLayoutComponent
   ],
   imports: [
+    SharedModule,
     RouterModule.forChild([
       {path:'',component:ProfileComponent}
     ]),
@@ -19,6 +22,7 @@ import { ModuleLayoutComponent } from '../module-layout/module-layout.component'
     ReactiveFormsModule,
   ],
   exports:[
+    // ModuleLayoutComponent
   ]
 })
 export class ProfileModule { }

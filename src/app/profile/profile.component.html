@@ -1,5 +1,5 @@
 
-<app-module-layout [moduleName]="'Profile'" [urlPaths]="['Panel','Profile']">   
+ <app-module-layout [moduleName]="'Profile'" [urlPaths]="['Panel','Profile']">   
     <h6 class="text-danger" *ngIf="FormErrMessage && FormErrMessage.message">{{FormErrMessage.message}}</h6>
     <h6 class="text-danger" *ngIf="userDetails && userDetails.invalid && (userDetails.dirty || userDetails.touched)">Please Fill Valid Details</h6>
     <h6 class="text-danger" *ngIf="FormErr">Submit Failed</h6>
