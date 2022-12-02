@@ -1,0 +1,111 @@
+<div class="align-items-center d-flex justify-content-between">
+	<h4>Users List</h4>
+	<form class="align-items-center d-flex form-inline justify-content-center m-0 ng-pristine ng-untouched ng-valid" [formGroup]="filter" (submit)="onSearch()">
+		<div class="form-group mx-sm-3">
+			<input id="table-filtering-search" class="form-control" type="text" placeholder="Search.."  formControlName="search" formcontrol="filter">
+		</div>
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<button type="submit" class="btn btn-primary btn-left"  ><i class="fa fa-search"></i> Search</button>
+			<button type="button" class="btn btn-primary btn-sm btn-left" (click)="onToggleAdvanceSearch()"><i class="fa fa-arrow-circle-down"></i></button>
+		</div>
+	</form>
+</div>
+<app-popup-model *ngIf="advanceSearch" [title]="'Filter'" (onSubmitBack)="onToggleAdvanceSearch()" (onSubmitCallBack)="onSearch();onToggleAdvanceSearch();">
+	<form [formGroup]="filter" >
+		<div class="row">
+			<div class="form-group col-lg-6">
+				<label for="form_date">From Date</label>
+				<input type="date" class="form-control" formControlName="fromDate" id="inputdate4" placeholder="Form Date">
+			</div>
+			<div class="form-group col-lg-6">
+				<label for="to_date">To Date</label>
+				<input type="date" class="form-control" formControlName="toDate"  id="inputdate5" placeholder="To Date">
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="form-group col-6">
+				<div class="form-check">
+					<label for="To_date">With </label>
+					<input class="form-check-input" formControlName="withTrash" value="true" type="checkbox" id="with_trash">
+					<label class="form-check-label" for="with_trash">
+						Trash
+					</label>
+				</div>
+			</div>
+			<div class="form-group col-6">
+				<label for="orderBy">Serialize By</label>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" formControlName="orderBy" name="orderBy" value="asc" id="orderBy1">
+					<label class="form-check-label" for="orderBy1">
+					  Latest
+					</label>
+				  </div>
+				  <div class="form-check">
+					<input class="form-check-input" type="radio" formControlName="orderBy" name="orderBy" value="desc" id="orderBy2">
+					<label class="form-check-label" for="orderBy2">
+					 	Oldest
+					</label>
+				</div>
+			</div>
+		</div>
+	</form>
+</app-popup-model>
+<hr>
+<table *ngIf="users.length > 0 ;else pleaseWait" class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Photo</th>
+			<th scope="col">Name</th>
+			<th scope="col">Email</th>
+			<th scope="col">Number</th>
+			<th scope="col">Designation</th>
+			<th scope="col">Salary</th>
+			<th scope="col">Address</th>
+			<th scope="col">Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let user of users | slice: (paginationPage-1) * pageSize : paginationPage * pageSize; index as i">
+			<th scope="row">{{ i + 1 }}</th>
+            <td>
+				<span class="avatar avatar-md" >
+                    <img [src]="user.photo_path ?? 'https://coreui.io/demos/bootstrap/4.3/light-v3/assets/img/avatars/8.jpg'" class="img avatar-img" [alt]="user.name " srcset="">
+                </span>
+			</td>
+			<td>
+				{{ user.name }}
+			</td>
+            <td>
+				{{ user.email }}
+			</td>
+            <td>
+				{{ user.number }}
+			</td>
+			<td>
+				<span *ngIf="user.roll" >{{ user.roll }}</span>
+				<span *ngIf="!user.roll" >N/A</span>
+			</td>
+            <td>
+				<span *ngIf="user.salary" >{{ user.salary }}</span>
+				<span *ngIf="!user.salary" >N/A</span>
+			</td>
+            <td>
+				<span *ngIf="user.address" >{{ user.address }}</span>
+				<span *ngIf="!user.address" >N/A</span>
+			</td>
+			<td>
+				<div class="btn-group" role="group" aria-label="Action">
+					<button class="btn btn-dark btn-sm text-white" (click)="onFindView(user.id)"><i class="fa fa-eye"></i> View</button>
+					<button class="btn btn-primary btn-sm text-white" (click)="onUpdateView(user.id)"><i class="fa fa-edit"></i> Update</button>
+					<button class="mr-2 btn btn-danger btn-sm text-white" (click)="onDelete(user.id)"><i class="fa fa-trash-o"></i> Delete</button>
+				</div>
+            </td>
+		</tr>
+	</tbody>
+</table>
+<ngb-pagination *ngIf="users.length > 0" [collectionSize]="listCount" [maxSize]="5" [rotate]="true" (pageChange)="onFetchData($event)" [pageSize]="pageSize" [(page)]="paginationPage" class="align-items-center d-flex justify-content-center mx-auto pagination pagination-sm mt-3"></ngb-pagination>
+<ng-template #pleaseWait>
+	<app-please-wait></app-please-wait>
+</ng-template>

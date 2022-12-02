@@ -16,6 +16,10 @@ const routes: Routes = [
       path: 'department',
       loadChildren: () => import('../department/department.module').then(m => m.DepartmentModule)
     },
+    {
+      path: 'user',
+      loadChildren: () => import('../user/user.module').then(m => m.UserModule)
+    },
     {path:'',redirectTo:'dashboad',pathMatch:'full'}
   ]}
 ];

@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class SidebarComponent implements OnInit {
 
   departmentToggle:boolean = false;
+  userToggle:boolean = false;
 
   constructor() { }
 
