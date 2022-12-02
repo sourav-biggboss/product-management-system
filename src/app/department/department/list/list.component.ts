@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfigApiService } from 'src/app/config/config-api.service';
 import { ToastService } from 'src/app/toast-inline/toast.service';
@@ -17,12 +17,20 @@ export class ListComponent implements OnInit {
   listCount:number = 0;
   paginationPage:number = 1;
   pageSize:number = 30;
-  filter = new FormControl('', { nonNullable: true });
-  tableGlobleSearch!:string;
+
+  filter = this.formBulider.group({
+    orderBy:['desc',[Validators.required,Validators.maxLength(5),Validators.minLength(2)]],
+    fromDate:[''],
+    toDate:[''],
+    withTrash:[null],
+    search :[null]
+  });
+
   advanceSearch:boolean = false;
-  constructor(private toastService: ToastService,private departmentService:DepartmentService,private router:Router,private configApiService:ConfigApiService) { }
+  constructor(private toastService: ToastService,private departmentService:DepartmentService,private router:Router,private configApiService:ConfigApiService,private formBulider:FormBuilder) { }
 
   ngOnInit(): void {
+
     this.onFetchData();
     this.getCountList();
   }
@@ -34,8 +42,7 @@ export class ListComponent implements OnInit {
       this.listCount = data.count;
     });
   }
-  onSearch(search:string){
-    this.tableGlobleSearch = search;
+  onSearch(){
     this.departments = [];
     this.onFetchData();
     this.getCountList();
@@ -46,7 +53,7 @@ export class ListComponent implements OnInit {
     const offset = this.pageSize * (event - 1);
     const limit = this.pageSize;
     
-    this.departmentService.fetchDepartments(undefined,offset,limit,this.tableGlobleSearch).subscribe((data:DepartmentDetailsApiInterface[])=>{
+    this.departmentService.fetchDepartments(undefined,offset,limit,this.filter.value).subscribe((data:DepartmentDetailsApiInterface[])=>{
       this.FormErr = false;
       this.departments = this.departments.concat(data);
     },(err)=>{
@@ -61,6 +68,9 @@ export class ListComponent implements OnInit {
 
   onUpdateView(id:number){
     this.router.navigate(['/panel/department/add-update/edit',id]);
+  }
+  onFindView(id:number){
+    this.router.navigate(['/panel/department/view',id]);
   }
 
 }

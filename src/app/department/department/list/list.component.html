@@ -1,16 +1,56 @@
 <div class="align-items-center d-flex justify-content-between">
 	<h4>Departments List</h4>
-	<form class="align-items-center d-flex form-inline justify-content-center m-0 ng-pristine ng-untouched ng-valid">
+	<form class="align-items-center d-flex form-inline justify-content-center m-0 ng-pristine ng-untouched ng-valid" [formGroup]="filter" (submit)="onSearch()">
 		<div class="form-group mx-sm-3">
-			<input id="table-filtering-search" class="form-control" type="text" placeholder="Search.." #tableGlobleSearch formcontrol="filter">
+			<input id="table-filtering-search" class="form-control" type="text" placeholder="Search.."  formControlName="search" formcontrol="filter">
 		</div>
 		<div class="btn-group btn-group-toggle" data-toggle="buttons">
-			<button type="button" class="btn btn-primary btn-left" (click)="onSearch(tableGlobleSearch.value)" ><i class="fa fa-search"></i> Search</button>
+			<button type="submit" class="btn btn-primary btn-left"  ><i class="fa fa-search"></i> Search</button>
 			<button type="button" class="btn btn-primary btn-sm btn-left" (click)="onToggleAdvanceSearch()"><i class="fa fa-arrow-circle-down"></i></button>
 		</div>
 	</form>
 </div>
-<app-advance-search *ngIf="advanceSearch"></app-advance-search>
+<app-popup-model *ngIf="advanceSearch" [title]="'Filter'" (onSubmitBack)="onToggleAdvanceSearch()" (onSubmitCallBack)="onSearch();onToggleAdvanceSearch();">
+	<form [formGroup]="filter" >
+		<div class="row">
+			<div class="form-group col-lg-6">
+				<label for="form_date">From Date</label>
+				<input type="date" class="form-control" formControlName="fromDate" id="inputdate4" placeholder="Form Date">
+			</div>
+			<div class="form-group col-lg-6">
+				<label for="to_date">To Date</label>
+				<input type="date" class="form-control" formControlName="toDate"  id="inputdate5" placeholder="To Date">
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="form-group col-6">
+				<div class="form-check">
+					<label for="To_date">With </label>
+					<input class="form-check-input" formControlName="withTrash" value="true" type="checkbox" id="with_trash">
+					<label class="form-check-label" for="with_trash">
+						Trash
+					</label>
+				</div>
+			</div>
+			<div class="form-group col-6">
+				<label for="orderBy">Serialize By</label>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" formControlName="orderBy" name="orderBy" value="asc" id="orderBy1">
+					<label class="form-check-label" for="orderBy1">
+					  Latest
+					</label>
+				  </div>
+				  <div class="form-check">
+					<input class="form-check-input" type="radio" formControlName="orderBy" name="orderBy" value="desc" id="orderBy2">
+					<label class="form-check-label" for="orderBy2">
+					 	Oldest
+					</label>
+				</div>
+			</div>
+		</div>
+	</form>
+</app-popup-model>
 <hr>
 <table *ngIf="departments.length > 0 ;else pleaseWait" class="table table-striped">
 	<thead>
@@ -33,6 +73,7 @@
 			</td>
 			<td>
 				<div class="btn-group" role="group" aria-label="Action">
+					<button class="btn btn-dark btn-sm text-white" (click)="onFindView(department.id)"><i class="fa fa-eye"></i> View</button>
 					<button class="btn btn-primary btn-sm text-white" (click)="onUpdateView(department.id)"><i class="fa fa-edit"></i> Update</button>
 					<button class="mr-2 btn btn-danger btn-sm text-white" (click)="onDelete(department.id)"><i class="fa fa-trash-o"></i> Delete</button>
 				</div>

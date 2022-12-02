@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModuleLayoutComponent } from "./module-layout/module-layout.component";
 import { PleaseWaitComponent } from './please-wait/please-wait.component';
-import { AdvanceSearchComponent } from './advance-search/advance-search.component';
+import { PopupModelComponent } from './popup-model/popup-model.component';
 
 
 @NgModule({
   declarations: [
     ModuleLayoutComponent,
     PleaseWaitComponent,
-    AdvanceSearchComponent,
+    PopupModelComponent,
   ],
   imports: [
     CommonModule
@@ -17,7 +17,7 @@ import { AdvanceSearchComponent } from './advance-search/advance-search.componen
   exports:[
     ModuleLayoutComponent,
     PleaseWaitComponent,
-    AdvanceSearchComponent
+    PopupModelComponent
   ]
 })
 export class SharedModule { }

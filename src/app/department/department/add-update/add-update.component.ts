@@ -24,7 +24,6 @@ export class AddUpdateComponent implements OnInit {
   constructor(private form:FormBuilder,private departmentService:DepartmentService,private toastService:ToastService,private route: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-    console.warn('Somthing wroung',this.route.snapshot.paramMap.get('id'));
     const screen = this.route.snapshot.paramMap.get('screen');
     const id = this.route.snapshot.paramMap.get('id');
     if (screen == 'add') {

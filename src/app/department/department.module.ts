@@ -7,6 +7,7 @@ import { DepartmentComponent } from './department/department.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared/shared.module';
+import { ViewComponent } from './department/view/view.component';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { SharedModule } from '../shared/shared.module';
     ListComponent,
     AddUpdateComponent,
     DepartmentComponent,
+    ViewComponent,
   ],
   imports: [
     SharedModule,
@@ -25,6 +27,7 @@ import { SharedModule } from '../shared/shared.module';
       {path:'',component:DepartmentComponent,children:[
         {path:'add-update/:screen',component:AddUpdateComponent},
         {path:'add-update/:screen/:id',component:AddUpdateComponent},
+        {path:'view/:id',component:ViewComponent},
         {path:'list',component:ListComponent},
         {path:'',redirectTo:'add',pathMatch:'full'},
       ]},

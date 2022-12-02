@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdvanceSearchComponent } from './advance-search.component';
+import { PopupModelComponent } from './popup-model.component';
 
-describe('AdvanceSearchComponent', () => {
-  let component: AdvanceSearchComponent;
-  let fixture: ComponentFixture<AdvanceSearchComponent>;
+describe('PopupModelComponent', () => {
+  let component: PopupModelComponent;
+  let fixture: ComponentFixture<PopupModelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdvanceSearchComponent ]
+      declarations: [ PopupModelComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdvanceSearchComponent);
+    fixture = TestBed.createComponent(PopupModelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

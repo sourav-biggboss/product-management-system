@@ -1,0 +1,40 @@
+<div class="jumbotron jumbotron-fluid" *ngIf="departmentDetail; else pleaseWait">
+    <div class="container">
+        <h1 class="display-6">{{departmentDetail.name}}</h1>
+        <br>
+        <div class="lead">
+            
+            <table class="table table-bordered">
+                <tr>
+                    <th>ID:</th>
+                    <td>
+                        <span>{{departmentDetail.id}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Description:</th>
+                    <td>
+                        <span *ngIf="departmentDetail.description" >{{departmentDetail.description}}</span>
+                        <span *ngIf="!(departmentDetail.description)" >N/A</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Created At:</th>
+                    <td>
+                        <span>{{departmentDetail.created_at}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Updated At:</th>
+                    <td>
+                        <span *ngIf="departmentDetail.updated_at" >{{departmentDetail.updated_at}}</span>
+                        <span *ngIf="!(departmentDetail.updated_at)" >N/A</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<ng-template #pleaseWait>
+	<app-please-wait></app-please-wait>
+</ng-template>
