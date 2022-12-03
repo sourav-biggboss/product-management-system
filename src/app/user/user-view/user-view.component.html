@@ -1,1 +1,66 @@
-<p>user-view works!</p>
+<div class="jumbotron jumbotron-fluid" *ngIf="userDetail; else pleaseWait">
+    <div class="container">
+        <h1 class="display-6">{{userDetail.name}}</h1>
+        <br>
+        <div class="lead">
+            
+            <table class="table table-bordered">
+                <tr>
+                    <th>ID:</th>
+                    <td>
+                        <span>{{userDetail.id}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td>
+                        <span>{{userDetail.email}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Number:</th>
+                    <td>
+                        <span>{{userDetail.number}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Address:</th>
+                    <td>
+                        <span *ngIf="userDetail.address" >{{userDetail.address}}</span>
+                        <span *ngIf="!(userDetail.address)" >N/A</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Designation:</th>
+                    <td>
+                        <span *ngIf="userDetail.roll" >{{userDetail.roll}}</span>
+                        <span *ngIf="!(userDetail.roll)" >N/A</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Salary:</th>
+                    <td>
+                        <span *ngIf="userDetail.salary" >{{userDetail.salary}}</span>
+                        <span *ngIf="!(userDetail.salary)" >0</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Department:</th>
+                    <td>
+                        <span>{{userDetail.department_name}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Department Details</th>
+                    <td>
+                        <span *ngIf="userDetail.department_description" >{{userDetail.department_description}}</span>
+                        <span *ngIf="!(userDetail.department_description)" >N/A</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<ng-template #pleaseWait>
+	<app-please-wait></app-please-wait>
+</ng-template>

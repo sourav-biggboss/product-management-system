@@ -1,1 +1,57 @@
-<p>user-add-update works!</p>
+
+
+<h6 class="text-danger" *ngIf="FormErrMessage && FormErrMessage.message">{{FormErrMessage.message}}</h6>
+<h6 class="text-danger" *ngIf="userDetails && userDetails.invalid && (userDetails.dirty || userDetails.touched)">Please Fill Valid Details</h6>
+<h6 class="text-danger" *ngIf="FormErr">Submit Failed</h6>
+<form class="row g-3" [formGroup]="userDetails" (submit)="onSubmitDetails()">
+    <div class="col-4">
+        <label for="name1" class="form-label">Name <small class="text-danger">*</small></label>
+        <input type="text" class="form-control" formControlName="name" maxlength="225" id="name1" placeholder="Full Name" required>
+    </div>
+    <div class="col-md-4">
+        <label for="profile" class="form-label">Profile Pic <small class="text-danger">*</small></label>
+        <input type="file" class="form-control" formControlName="photo" id="profile">
+    </div>
+    <div class="col-4">
+        <label for="designation" class="form-label">Designation <small class="text-danger">*</small></label>
+        <input type="text" class="form-control" formControlName="roll" id="designation" placeholder="Designation">
+    </div>
+    <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Email <small class="text-danger">*</small></label>
+        <input type="email" class="form-control" formControlName="email" maxlength="225" id="inputEmail4" required>
+    </div>
+    <div class="col-md-6">
+        <label for="inputPassword4" class="form-label">Password <small class="text-danger">*</small></label>
+        <input type="password" class="form-control" formControlName="password" minlength="6" id="inputPassword4" required>
+    </div>
+    
+    <div class="col-6">
+        <label for="inputAddress" class="form-label">Address <small class="text-danger">*</small></label>
+        <input type="text" class="form-control" id="inputAddress" formControlName="address" maxlength="225" placeholder="Apartment, studio, or floor" required>
+    </div>
+    <div class="col-6">
+        <label for="cv" class="form-label">CV <small class="text-danger">*</small></label>
+        <input type="file" class="form-control" formControlName="cv" id="cv">
+    </div>
+    <div class="col-md-6">
+        <label for="number" class="form-label">Number <small class="text-danger">*</small></label>
+        <input type="tel" maxlength="10" minlength="10" formControlName="number"  class="form-control" id="number" required>
+    </div>
+    <div class="col-md-4">
+        <label for="department" class="form-label">Department <small class="text-danger">*</small></label>
+        <select id="department" *ngIf="departments && departments.length > 0 " class="form-select" [(ngModel)]="this.userDetails.value.department_id" formControlName="department_id"  required>
+        <option value="" [selected]="!this.userDetails.value.department_id">Please Select Department</option>
+        <option *ngFor="let department of departments" [value]="department.id">{{department.name}}</option>
+        </select>
+        <select id="department" *ngIf="!(departments && departments.length > 0 )" class="form-select" [(ngModel)]="this.userDetails.value.department_id" formControlName="department_id"  required>
+        <option >Please Create Departments</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label for="salary" class="form-label">Salary <small class="text-danger">*</small></label>
+        <input type="tel" min="3" maxlength="10"  formControlName="salary" class="form-control" id="salary" required>
+    </div>
+    <div class="col-12">
+        <button type="submit" [disabled]="userDetails.invalid && (userDetails.dirty || userDetails.touched)" class="btn btn-primary">Save</button>
+    </div>
+</form>

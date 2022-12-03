@@ -34,7 +34,22 @@ export class UserService {
     ));
   }
 
-  addUser(formDate:UserDetailsApiInterface){
+  fetchUserWithDepartment(id:number){
+    this.loaderService.loader.next(true);
+    return this.http.get<UserDetailsApiInterfaceWithDepartment[]>(this.configApi.apiUrl+'profile/index/'+(id ?? '')).pipe(tap(
+      (data) => {
+        this.loaderService.loader.next(false);
+      },
+      (err)=>{
+        this.loaderService.loader.next(false);
+      },
+      ()=>{
+        this.loaderService.loader.next(false);
+      }
+    ));
+  }
+
+  addUser(formDate:UserDetailsFormInterface){
     this.loaderService.loader.next(true);
       
     return this.http.post<{status:string}>(this.configApi.apiUrl+'profile/create/',formDate).pipe(tap(
@@ -123,6 +138,11 @@ export interface UserDetailsApiInterface {
   number:number | null,
   department_id:number | null,
   salary:number | null,
-  address:string | null
+  address:string | null,
+  department_name:string,
 }
+export interface UserDetailsApiInterfaceWithDepartment extends UserDetailsApiInterface {
+  department_name:string,
+  department_description:string | null
+} 
 
