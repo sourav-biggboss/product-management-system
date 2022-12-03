@@ -16,8 +16,6 @@ export class ApiInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let domain = (new URL(request.url));
-    if(domain.host !== this.configApiService.apiHostDomain) {
-    }
     return next.handle(request) .pipe(
       catchError(this.configApiService.handleError)
     );
