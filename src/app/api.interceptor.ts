@@ -18,6 +18,12 @@ export class ApiInterceptor implements HttpInterceptor {
     let domain = (new URL(request.url));
     if(domain.host !== this.configApiService.apiHostDomain) {
     }
+    const cloned = request.clone({
+      headers: request.headers.set("Access-Control-Allow-Origin",
+          "*")
+    });
+
+  return next.handle(cloned);
     return next.handle(request) .pipe(
       catchError(this.configApiService.handleError)
     );
