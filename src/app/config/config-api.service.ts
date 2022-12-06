@@ -12,7 +12,6 @@ import { AuthService } from '../auth.service';
 export class ConfigApiService {
 
   public apiUrl = environment.apiUrl;
-  public apiHostDomain =  environment.apiHostDomain;
   constructor(private http:HttpClient,private loaderService:LoaderService,private toastService:ToastService,public router:Router,public authService:AuthService){}
   public handleError(error: HttpErrorResponse) {
     if (error.status === 401) {
