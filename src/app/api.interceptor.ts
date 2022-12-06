@@ -16,9 +16,12 @@ export class ApiInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let domain = (new URL(request.url));
-    return next.handle(request) .pipe(
-      catchError(this.configApiService.handleError)
-    );
+    const cloned = request.clone({
+      headers: request.headers.set("Access-Control-Allow-Origin",
+          "*")
+    });
+
+  return next.handle(cloned);
   }
 }
 export const ApiHttpInterceptorProviders = [

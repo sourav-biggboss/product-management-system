@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfigApiService } from 'src/app/config/config-api.service';
+import { DepartmentDetailsApiInterface, DepartmentService } from 'src/app/department/department.service';
 import { ToastService } from 'src/app/toast-inline/toast.service';
 import { UserDetailsApiInterface, UserService } from "../user.service";
 @Component({
@@ -12,6 +13,7 @@ import { UserDetailsApiInterface, UserService } from "../user.service";
 export class UserListComponent implements OnInit {
 
   users:UserDetailsApiInterface[] = [];
+  departments:DepartmentDetailsApiInterface[] = [];
   FormErr:boolean = false;
   FormErrMessage:any = undefined;
   listCount:number = 0;
@@ -23,14 +25,18 @@ export class UserListComponent implements OnInit {
     fromDate:[''],
     toDate:[''],
     withTrash:[null],
-    search :[null]
+    search :[null],
+    department_id:[null]
   });
 
-  constructor(private toastService: ToastService,private userService:UserService,private router:Router,private configApiService:ConfigApiService,private formBulider:FormBuilder) { }
+  constructor(private toastService: ToastService,private userService:UserService,private router:Router,private configApiService:ConfigApiService,private formBulider:FormBuilder,private departmentService:DepartmentService) { }
   ngOnInit(): void {
 
     this.onFetchData();
     this.getCountList();
+    this.departmentService.fetchDepartments().subscribe((data:DepartmentDetailsApiInterface[])=>{
+      this.departments = data;
+    });
   }
   onToggleAdvanceSearch(){
     this.advanceSearch = !this.advanceSearch;
