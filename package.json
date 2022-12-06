@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --configuration=development -o",
+    "build": "ng build --configuration production && xcopy ../../../public/assets/product-management-system/index.html ../../views/welcome.blade.php",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
